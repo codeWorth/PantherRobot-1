@@ -19,7 +19,6 @@ public class TwoMotorGroup extends Subsystem implements SpeedController {
 	private int encStart; 
 	private long encVel = 0;
 	public long rps = 0;
-	private int times = 0;
 	private long startTime;
 	
     public void initDefaultCommand() {

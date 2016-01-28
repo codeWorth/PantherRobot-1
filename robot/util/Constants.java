@@ -26,6 +26,9 @@ public class Constants {
 	public static final int kLowerShooter1 = 3; //SRX
 	public static final int kLowerShooter2 = 4; //SRX
 	
+	// Servos
+	public static final int kFeederServo = 6;
+	
 	// DoubleSolenoids
 	public static final int kLeftShiftSolenoidForwardChannel = 0;
 	public static final int kLeftShiftSolenoidReverseChannel = 1;

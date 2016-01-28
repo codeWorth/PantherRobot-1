@@ -4,7 +4,6 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.Hardware;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -20,7 +19,7 @@ public class Shooter extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void pushOut()
+    public void pushOut() //has to be repeatedly call
     {
     	//SmartDashboard.putNumber("RPS lower", Hardware.lowerShooterGroup.rps);
     	
