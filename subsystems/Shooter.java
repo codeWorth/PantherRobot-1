@@ -9,14 +9,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Shooter extends Subsystem {
-    public static final double mSpeed = -0.5;
+	public boolean running = false;
+	
+    public static final double mSpeed = -0.4;
+    //.43 for 13 ft.
     
     public static final double targetRPS = 50000000;
-
+    
     public void initDefaultCommand() 
     {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public void update(){
+    	if (running){
+    		pushOut();
+    	} else {
+    		stop();
+    	}
     }
     
     public void pushOut() //has to be repeatedly call
@@ -41,6 +52,11 @@ public class Shooter extends Subsystem {
     	} else {
     		Hardware.upperShooterGroup.set(0);
     	}
+    }
+    
+    public void shootBall() {
+    	Hardware.lowerShooterGroup.set(0.5);
+    	Hardware.upperShooterGroup.set(-0.5);
     }
     
     public void stop()

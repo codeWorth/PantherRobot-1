@@ -1,14 +1,11 @@
 package org.usfirst.frc.team5026.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import org.usfirst.frc.team5026.robot.util.Hardware;
 
-public class Shifter extends Subsystem {
-    
-	DoubleSolenoid leftShiftSolenoid = new DoubleSolenoid(0, 1);
-	DoubleSolenoid rightShiftSolenoid = new DoubleSolenoid(2, 3);
-	
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+public class Shifter extends Subsystem {	
 	boolean isHigh;
 	
 	public Shifter(boolean highShift) {
@@ -19,14 +16,12 @@ public class Shifter extends Subsystem {
     
     public void setShift(boolean highShift) {
     	if(highShift) {
-    		leftShiftSolenoid.set(Value.kForward);
-    		rightShiftSolenoid.set(Value.kForward);
+    		Hardware.shifterSolenoid.set(Value.kForward);
     		isHigh = true;
     	}
     	
     	else {
-    		leftShiftSolenoid.set(Value.kReverse);
-    		rightShiftSolenoid.set(Value.kReverse);
+    		Hardware.shifterSolenoid.set(Value.kReverse);
     		isHigh = false;
     	}
     }

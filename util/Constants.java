@@ -33,9 +33,6 @@ public class Constants {
 	public static final int kLeftShiftSolenoidForwardChannel = 0;
 	public static final int kLeftShiftSolenoidReverseChannel = 1;
 	
-	public static final int kRightShiftSolenoidForwardChannel = 2;
-	public static final int kRightShiftSolenoidReverseChannel = 3;
-	
 	// DIO
 	
 	// Math Constants

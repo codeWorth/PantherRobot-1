@@ -1,10 +1,10 @@
 package org.usfirst.frc.team5026.robot.util;
 
-import org.usfirst.frc.team5026.robot.subsystems.BallFeed;
 import org.usfirst.frc.team5026.robot.subsystems.ThreeMotorGroup;
 import org.usfirst.frc.team5026.robot.subsystems.TwoMotorGroup;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
@@ -28,6 +28,8 @@ public class Hardware {
 	
 	public static final RobotDrive driveBase = new RobotDrive(leftGroup, rightGroup);
 	
+	public static final DoubleSolenoid shifterSolenoid = new DoubleSolenoid(Constants.kLeftShiftSolenoidForwardChannel, Constants.kLeftShiftSolenoidReverseChannel); 
+	
 	public static final Joystick joystick1 = new Joystick(Constants.kPrimaryJoystick);
 	
 	public static final CANTalon lowerShooterMotor1 = new CANTalon(Constants.kLowerShooter1);
@@ -39,7 +41,7 @@ public class Hardware {
 	public static final TwoMotorGroup lowerShooterGroup = new TwoMotorGroup(lowerShooterMotor1, lowerShooterMotor2);
 	public static final TwoMotorGroup upperShooterGroup = new TwoMotorGroup(upperShooterMotor1, upperShooterMotor2);
 	
-	public static final BallFeed ballFeeder = new BallFeed(new Servo(Constants.kFeederServo));
+	public static final Servo feedServo = new Servo(Constants.kFeederServo);
 	
 	public static final Button mainTrigJoy1 = new JoystickButton(joystick1, 1);
 	public static final Button sideTrigJoy1 = new JoystickButton(joystick1, 2);

@@ -16,10 +16,10 @@ public class TwoMotorGroup extends Subsystem implements SpeedController {
 	public CANTalon motorController1;
 	public SpeedController motorController2;
 	
-	private int encStart; 
-	private long encVel = 0;
-	public long rps = 0;
-	private long startTime;
+	private double encStart; 
+	private double encVel = 0;
+	public double rps = 0;
+	private double startTime;
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -88,7 +88,7 @@ public class TwoMotorGroup extends Subsystem implements SpeedController {
 		SmartDashboard.putNumber("Enc VEL LOL v2 after done go", encVel);
 		SmartDashboard.putNumber("Delta Time", System.nanoTime() - startTime);
 		
-		rps = (long) encVel;
+		rps = encVel;
 		
 		encStart = motorController1.getEncPosition();
 		startTime = System.nanoTime();

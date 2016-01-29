@@ -1,18 +1,11 @@
 package org.usfirst.frc.team5026.robot.util;
 
-import org.usfirst.frc.team5026.robot.commands.Shift;
-import org.usfirst.frc.team5026.robot.commands.ShootBall;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.command.Command;
 
 
 
-public class PrimaryDriver { //This class assumes arcade drive
-	private Command shiftCmd = new Shift();
-	private Command shootCmd = new ShootBall();
-	
+public class PrimaryDriver { //This class assumes arcade drive	
 	private Joystick stick;
 	private RobotDrive driveBase;
 	
@@ -30,9 +23,6 @@ public class PrimaryDriver { //This class assumes arcade drive
 		
 		yMovingAverage = new double[yAveCount];
 		xMovingAverage = new double[xAveCount];
-		
-		Hardware.mainTrigJoy1.whenPressed(shiftCmd);
-		Hardware.sideTrigJoy1.whenPressed(shootCmd);
 	}
 	
 	public void driveArcade(){

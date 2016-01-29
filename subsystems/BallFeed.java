@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5026.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Servo;
+import org.usfirst.frc.team5026.robot.util.Hardware;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -8,21 +9,19 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class BallFeed extends Subsystem {
     
-	public Servo ballServo;
-	boolean isServoFoward;
+	boolean isServoFoward = false;
 	
-	public BallFeed(Servo feederServo) {
-		ballServo = feederServo;
+	public BallFeed() {
 		resetServo();
 	}
 	
 	public void fowardServo() {
-		ballServo.setAngle(90);
+		Hardware.feedServo.setAngle(0.0);
 		isServoFoward = true;
 	}
 	
 	public void resetServo() {
-		ballServo.setAngle(0.0);
+		Hardware.feedServo.setAngle(75);
 		isServoFoward = false;
 	}
 	

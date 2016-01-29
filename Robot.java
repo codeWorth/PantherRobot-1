@@ -2,6 +2,7 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.commands.AutoCommands;
+import org.usfirst.frc.team5026.robot.subsystems.BallFeed;
 import org.usfirst.frc.team5026.robot.subsystems.Shifter;
 import org.usfirst.frc.team5026.robot.subsystems.Shooter;
 import org.usfirst.frc.team5026.robot.util.Hardware;
@@ -22,17 +23,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {	
 	public Command autonomousCommand = new AutoCommands();
 	
+	public static final BallFeed ballFeeder = new BallFeed();
 	public static final Shifter shifter = new Shifter(true);
 	public static final Shooter shooter = new Shooter();
 	
 	public PrimaryDriver joystickWrapper1 = new PrimaryDriver(Hardware.joystick1, Hardware.driveBase);	
 	
+	public static OI oi;
+	
+	
+	
+	public double encVel;
+	public long startTime;
+	public long deltatime;
+	public double startPos;
 	
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
+    	oi = new OI();
         // instantiate the command used for the autonomous period
     }
 	
@@ -58,6 +69,10 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         //if (autonomousCommand != null) autonomousCommand.cancel();	
+    	
+    	
+    	startTime = System.nanoTime();
+    	startPos = Hardware.upperShooterMotor1.getEncPosition();
     }
 
     /**
@@ -72,12 +87,27 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        	
         Scheduler.getInstance().run();
-
-        //joystickWrapper1.driveArcade();
+        encVel = Hardware.upperShooterMotor1.getEncPosition()-startPos;
+        //encVel2 = Hardware.upperShooterMotor2.getEnc
+        
+        SmartDashboard.putNumber("DELTA ENC VAL", encVel);
+        deltatime = System.nanoTime()-startTime;
+        SmartDashboard.putNumber("Delta Time", deltatime);
+        
+        encVel *= 1000000000 / deltatime;
+        
+        SmartDashboard.putNumber("encVel 2 ", encVel);
+        
+        joystickWrapper1.driveArcade();
+        
+        startTime = System.nanoTime();
+        startPos = Hardware.upperShooterMotor1.getEncPosition();
+       
+        Robot.shooter.update();
         Hardware.lowerShooterGroup.update();
         Hardware.upperShooterGroup.update();
+        
         SmartDashboard.putNumber("Vel Upper 1", Hardware.upperShooterMotor1.getEncVelocity());
         SmartDashboard.putNumber("RPS upper", Hardware.upperShooterGroup.rps);
     	SmartDashboard.putNumber("Pos Upper 1", Hardware.upperShooterMotor1.getEncPosition());
