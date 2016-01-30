@@ -46,8 +46,8 @@ public class ThreeMotorGroup extends Subsystem implements SpeedController {
     	}
     	 
        	public void set(double speed) {
-    		motorController1.set(speed);
-    		motorController2.set(-speed);
+    		motorController1.set(-speed);
+    		motorController2.set(speed);
     		motorController3.set(speed);
     	}
 
