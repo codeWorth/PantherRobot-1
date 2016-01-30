@@ -15,7 +15,6 @@ public class TwoMotorGroup extends Subsystem implements SpeedController {
 	
 	public CANTalon motorController1;
 	public SpeedController motorController2;
-	
 	private double encStart; 
 	private double encVel = 0;
 	public double rps = 0;

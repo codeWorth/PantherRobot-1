@@ -31,8 +31,6 @@ public class Robot extends IterativeRobot {
 	
 	public static OI oi;
 	
-	
-	
 	public double encVel;
 	public long startTime;
 	public long deltatime;
