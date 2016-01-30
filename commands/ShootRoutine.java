@@ -28,8 +28,9 @@ public class ShootRoutine extends CommandGroup {
     	addSequential(new ToggleShooter());
     	addSequential(new WaitCommand(4));
     	addSequential(new FeedBall());
-    	addSequential(new ShooterSpeedDrop());
-    	addSequential(new ToggleShooter());
-    	addSequential(new FeedBall());
+    	//addSequential(new ShooterSpeedDrop());
+    	//addSequential(new WaitCommand(1));
+    	//addSequential(new ToggleShooter());
+    	//addSequential(new FeedBall());
     }
 }

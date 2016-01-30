@@ -39,7 +39,7 @@ public class Constants {
 	public static final int kWheelRadius = 6; //inches
 	public static final double kEncoderCPR = 256;
 	
-	public static final double upperPercentage = 1 - 0.00826;
+	public static final double upperPercentage = 1;
 	
 	public static final double kDriveP = 0;
 	public static final double kDriveI = 0;

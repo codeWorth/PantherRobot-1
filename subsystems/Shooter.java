@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
 	public boolean running = false;
 	
-    public static final double mSpeed = -0.4;
+    public static final double mSpeed = -0.42;
     //.43 for 13 ft.
     
     public static final double targetRPS = 50000000;
@@ -48,7 +48,7 @@ public class Shooter extends Subsystem {
     	}
     	
     	if (Hardware.upperShooterGroup.rps < targetRPS * Constants.upperPercentage){
-    		Hardware.upperShooterGroup.set(-mSpeed);
+    		Hardware.upperShooterGroup.set(-mSpeed * Constants.upperPercentage);
     	} else {
     		Hardware.upperShooterGroup.set(0);
     	}

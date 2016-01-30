@@ -3,13 +3,14 @@ package org.usfirst.frc.team5026.robot.commands;
 import org.usfirst.frc.team5026.robot.util.Hardware;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class ShooterSpeedDrop extends Command {
 
-	private double minSpeedDropPercent = 0.8;
+	private double minSpeedDropPercent = 0.1;
 	private double prevSpeed = 0;
 	
     public ShooterSpeedDrop() {
@@ -30,10 +31,12 @@ public class ShooterSpeedDrop extends Command {
     	if (isTimedOut()){
     		return true;
     	}
-    	if (Hardware.lowerShooterGroup.rps < prevSpeed * minSpeedDropPercent){
+		SmartDashboard.putNumber("prev speed", prevSpeed);
+		SmartDashboard.putNumber("cur speed", Hardware.upperShooterGroup.rps);
+    	if (Hardware.upperShooterGroup.rps < prevSpeed * minSpeedDropPercent){
     		return true;
     	} else {
-    		prevSpeed = Hardware.lowerShooterGroup.rps;
+    		prevSpeed = Hardware.upperShooterGroup.rps;
     		return false;
     	}
     }

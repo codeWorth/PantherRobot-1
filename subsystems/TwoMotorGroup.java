@@ -87,7 +87,7 @@ public class TwoMotorGroup extends Subsystem implements SpeedController {
 		SmartDashboard.putNumber("Enc VEL LOL v2 after done go", encVel);
 		SmartDashboard.putNumber("Delta Time", System.nanoTime() - startTime);
 		
-		rps = encVel;
+		rps = Math.abs(encVel);
 		
 		encStart = motorController1.getEncPosition();
 		startTime = System.nanoTime();
