@@ -1,82 +1,55 @@
 package org.usfirst.frc.team5026.robot.util;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
+import org.usfirst.frc.team5026.robot.util.Constants;
 
-
-
-public class PrimaryDriver { //This class assumes arcade drive	
-	private Joystick stick;
-	private RobotDrive driveBase;
+public class PrimaryDriver extends Joystick {
 	
-	private double[] yMovingAverage;
-	public static final int yAveCount = 10;
-
-	private double[] xMovingAverage;
-	public static final int xAveCount = 6;
-	
-	public static final double xSensAmount = 0.6;
-	
-	public PrimaryDriver(Joystick joystick, RobotDrive base){
-		stick = joystick;
-		driveBase = base;
+	public int power;
+	public PrimaryDriver(int port, JoystickCurve jPower) {
+		super(port);
 		
-		yMovingAverage = new double[yAveCount];
-		xMovingAverage = new double[xAveCount];
-	}
-	
-	public void driveArcade(){
-		updateYAxis();
-		updateXAxis();
-		
-		driveBase.arcadeDrive(yWithThrottle(), xWithThrottle()); //first param throttle, second param turning
-	}
-	
-	private void updateYAxis(){
-		double newVal = stick.getY();
-		addAndShift(yMovingAverage, newVal);
-	}
-	
-	private void updateXAxis(){
-		double newVal = stick.getX();
-		addAndShift(xMovingAverage, newVal);
-	}
-	
-	public double readYAverage(){
-		double sum = 0;
-		for (double val : yMovingAverage){
-			sum += val;
+		switch(jPower) {
+			case LINEAR: {
+				power = JoystickCurve.LINEAR.getPower();
+				break;
+			}
+			case SQUARED: {
+				power = JoystickCurve.SQUARED.getPower();
+				break;
+			}
+			case CUBIC: {
+				power = JoystickCurve.CUBIC.getPower();
+				break;
+			}
 		}
-		
-		return sum/yAveCount;
 	}
-	
-	public double yWithThrottle(){
-		return -readYAverage()*throttle();
-	}
-	
-	public double xWithThrottle(){
-		return -readXAverage()*throttle()*xSensAmount;
-	}
-	
-	public double throttle(){
-		return (-stick.getThrottle() + 1)/2;
-	}
-	
-	public double readXAverage(){
-		double sum = 0;
-		for (double val : xMovingAverage){
-			sum += val;
+
+	public double getXAxis() {
+		double xAxis = getX();
+
+		if(Math.abs(xAxis) > Constants.kPrimaryJoystickDeadZone) {
+			return inversionValue(xAxis)*Math.pow(xAxis, power);
 		}
-		
-		return sum/xAveCount;
+		else {
+			return 0;
+		}
 	}
 	
-	private void addAndShift(double[] list, double val){
-		for (int i = 1; i < list.length; i++){
-			 list[i-1] = list[i];
-		}
+	public double getYAxis() {
+		double yAxis = getY();
 		
-		list[list.length-1] = val;
+		if(Math.abs(yAxis) > Constants.kPrimaryJoystickDeadZone) {
+			return inversionValue(yAxis)*Math.pow(yAxis, power);
+		}
+		else {
+			return 0;
+		}
 	}
+	
+	private double inversionValue(double joyVal){
+		double inverter = joyVal/Math.abs(joyVal);
+		return Math.pow(inverter, power-1);
+	}
+
 }

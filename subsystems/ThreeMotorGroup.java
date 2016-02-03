@@ -1,79 +1,56 @@
-
-
-
-
-
 package org.usfirst.frc.team5026.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.SpeedController;
 
-/**
- *
- */
 public class ThreeMotorGroup extends Subsystem implements SpeedController {
+	
+    public SpeedController m_drive1;
+    public SpeedController m_drive2;
+    public SpeedController m_drive3;
     
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-	
-	public SpeedController motorController1;
-	public SpeedController motorController2;
-	public SpeedController motorController3;
-	
-	public boolean isRight;
-
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+    boolean isInverted;
+    
+    public ThreeMotorGroup(SpeedController a, SpeedController b, SpeedController c, boolean isLeftSide) {
+    	m_drive1 = a;
+    	m_drive2 = b;
+    	m_drive3 = c;
+    	isInverted = isLeftSide;
+    }
+    
+    public double get() {
+    	return m_drive1.get();
+    }
+    
+    public void set(double speed, byte syncGroup) {
+        set(isInverted ? -speed : speed);
+    }
+    
+    public void set(double speed) {
+    	m_drive1.set(-speed); // Top motor in gearbox
+    	m_drive2.set(speed);
+    	m_drive3.set(speed);
+    }
+    
+    public void setInverted(boolean isLeftSide) {
+    	isInverted = isLeftSide;
     }
 
-    	
-    	public ThreeMotorGroup(SpeedController a, SpeedController b, SpeedController c) {
-    		motorController1 = a;
-    		motorController2 = b;
-    		motorController3 = c;
-    	}
-    	
-    	public double get() {
-    		return motorController1.get();
-
-    	}
-    	
-    	public void set(double speed, byte whatever) {
-    		motorController1.set(-speed);
-    		motorController2.set(speed);
-    		motorController3.set(speed);
-    	}
-    	 
-       	public void set(double speed) {
-    		motorController1.set(speed);
-    		motorController2.set(-speed);
-    		motorController3.set(speed);
-    	}
-
-    	public void disable() {
-    		motorController1.disable();
-    		motorController2.disable();
-    		motorController3.disable();
-    	}
-
-    	public void pidWrite(double output) {
-    		motorController1.pidWrite(output); 
-    		motorController2.pidWrite(output);
-    		motorController3.pidWrite(output);
-    	}
-
-
-		@Override
-		public void setInverted(boolean isInverted) {			
-		}
-
-
-		@Override
-		public boolean getInverted() {
-			return false;
-		}
-
-    	
+    public boolean getInverted() {
+    	return isInverted;
+    }
+    
+    public void disable() {
+    	m_drive1.disable();
+    	m_drive2.disable();
+    	m_drive3.disable();
+    }
+    
+    public void pidWrite(double output) {
+    	m_drive1.pidWrite(output);
+    	m_drive2.pidWrite(output);
+    	m_drive3.pidWrite(output);
     }
 
+    public void initDefaultCommand() {}
+}

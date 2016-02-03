@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
+
 public class ShooterSpeedDrop extends Command {
 
 	private double minSpeedDropPercent = 0.1;
@@ -49,4 +50,5 @@ public class ShooterSpeedDrop extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+    
 }
