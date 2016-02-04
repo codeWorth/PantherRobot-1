@@ -5,7 +5,7 @@ import org.usfirst.frc.team5026.robot.util.Hardware;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Shifter extends Subsystem {	
+public class Shifter extends Subsystem {
 	boolean isHigh;
 	
 	public Shifter(boolean highShift) {

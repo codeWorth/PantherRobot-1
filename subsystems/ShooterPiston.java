@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShooterPiston extends Subsystem {
     
     DoubleSolenoid shooterPiston;
-    
+    boolean isRetracted;
     public ShooterPiston()
     {
     	shooterPiston = Hardware.shooterSolenoid;
@@ -24,14 +24,28 @@ public class ShooterPiston extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void extendPiston()
-    {
+    public void extendPiston() {
     	shooterPiston.set(Value.kForward);
+    	isRetracted = false;
     }
     
-    public void retractPiston()
-    {
+    public void retractPiston() {
     	shooterPiston.set(Value.kReverse);
+		isRetracted = true;
+
     }
+    public void setPiston(boolean isIn) {
+    	if(isIn) {
+    		extendPiston();
+    	}
+    	else {
+    		retractPiston();
+    	}
+    }
+    
+    public void toggleElevation() {
+    	setPiston(isRetracted);
+    }
+
 }
 
